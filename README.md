@@ -11,7 +11,7 @@ You can simply download the `bar128.lua` file from the [GitHub repository](https
 Here's an example of how to use the library in a LÖVE program:
 
 ```lua
-local Barcode = require("bar128-love")
+local Barcode = require("bar128")
 
 function love.load()
     -- Create a new Barcode object with the code "12345"
