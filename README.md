@@ -4,7 +4,7 @@
 
 ## Installation
 
-You can simply download the `bar128-love.lua` file from the [GitHub repository](https://github.com/Nawias/bar128-love) and include it in your LÖVE project.
+You can simply download the `bar128.lua` file from the [GitHub repository](https://github.com/Nawias/bar128-love) and include it in your LÖVE project.
 
 ## Usage
 
