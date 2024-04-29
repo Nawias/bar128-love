@@ -87,4 +87,4 @@ Changes the barcode's height.
 
 ## License
 
-This library is licensed under the MIT License. See the [bar128.lua](https://github.com/Nawias/bar128-love/blob/main/bar128.lua) file for details.
+This library is licensed under the MIT License. See the [bar128.lua](https://github.com/Nawias/bar128-love/blob/master/bar128.lua) file for details.
