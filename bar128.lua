@@ -234,10 +234,10 @@ end
 ---@param barcodeType 'A'|'B'|'C'|nil
 ---@return Barcode barcode
 local function newBarcode(self, code, barHeight, barWidth, barcodeType)
-    assert(('string'==type(code) or 'number'==type(code)) and string.len(code)>1,"Barcode: invalid code")
+    assert(('string' == type(code) or 'number' == type(code)) and string.len(code) > 1, "Barcode: invalid code")
     assert(isBarcodeType(barcodeType) or barcodeType == nil, "Barcode: invalid barcode type")
-    assert(barHeight>0,"Barcode: bar height cannot be 0 or less")
-    assert(barWidth>0,"Barcode: bar width cannot be 0 or less")
+    assert(barHeight == nil or barHeight > 0, "Barcode: bar height cannot be 0 or less")
+    assert(barWidth == nil or barWidth > 0, "Barcode: bar width cannot be 0 or less")
     local object = {
         code = code,
         barHeight = barHeight or 20,
@@ -254,9 +254,9 @@ end
 ---@param text 'notext'|'text' Indicates whether the text representation should be drawn underneath the barcode.
 ---@param x number X coordinate
 ---@param y number Y coordinate
-function Barcode:draw(text,x, y)
+function Barcode:draw(text, x, y)
     -- Account for the quiet zone
-    local cursor = x + self.barWidth*10
+    local cursor = x + self.barWidth * 10
 
     for _, glyph in pairs(self.cachedBarcode) do
         local isDrawing = true
@@ -281,7 +281,7 @@ end
 ---@param code string|number New barcode value
 ---@param barcodeType 'A'|'B'|'C'|nil (Optional) Force charset
 function Barcode:setCode(code, barcodeType)
-    assert(('string'==type(code) or 'number'==type(code)) and string.len(code)>1,"Barcode: invalid code")
+    assert(('string' == type(code) or 'number' == type(code)) and string.len(code) > 1, "Barcode: invalid code")
     assert(isBarcodeType(barcodeType) or barcodeType == nil, "Barcode: invalid barcode type")
     self.code = code
     self.barcodeType = barcodeType or detectBarcodeType(code)
@@ -297,7 +297,8 @@ end
 ---Changes the base width of bars
 ---@param width number
 function Barcode:setBarWidth(width)
-    assert(width>0,"Barcode: bar width cannot be 0 or less")
+    assert(width ~= nil, "Barcode: bar width cannot be nil")
+    assert(width > 0, "Barcode: bar width cannot be 0 or less")
     self.barWidth = width
 end
 
@@ -310,9 +311,11 @@ end
 ---Changes the base width of bars
 ---@param height number
 function Barcode:setBarHeight(height)
-    assert(height>0,"Barcode: bar height cannot be 0 or less")
+    assert(height ~= nil, "Barcode: bar height cannot be nil")
+    assert(height > 0, "Barcode: bar height cannot be 0 or less")
     self.barHeight = height
 end
+
 --#endregion
 
 --#endregion
