@@ -1,5 +1,5 @@
 local BAR128 = {
-    _VERSION     = "0.9.1",
+    _VERSION     = "0.9.5",
     _DESCRIPTION =
     "Barcode rendering library for LÖVE, based on Zanstra's JS implementation (https://zanstra.com/my/Barcode/code128.js)",
     _URL         = "https://github.com/Nawias/bar128-love",
@@ -32,6 +32,7 @@ local BAR128 = {
 ---@field private barHeight number Height of the drawn barcode
 ---@field private barWidth number width of the individual bars in pixels (default: `1`)
 ---@field private cachedBarcode number[] Parsed barcode ready for rendering
+---@field private fullWidth number Full width of the barcode calculated on demand
 ---@field private __index Barcode
 local Barcode = {}
 Barcode.__index = Barcode
@@ -258,7 +259,7 @@ function Barcode:draw(text, x, y)
     -- Account for the quiet zone
     local cursor = x + self.barWidth * 10
 
-    for _, glyph in pairs(self.cachedBarcode) do
+    for _, glyph in ipairs(self.cachedBarcode) do
         local isDrawing = true
         for i = 1, string.len(glyph), 1 do
             local width = tonumber(string.sub(glyph, i, i)) * self.barWidth
@@ -286,6 +287,7 @@ function Barcode:setCode(code, barcodeType)
     self.code = code
     self.barcodeType = barcodeType or detectBarcodeType(code)
     self.cachedBarcode = parseBarcode(code, self.barcodeType)
+    self.fullWidth = nil
 end
 
 ---Get the current bar width
@@ -299,6 +301,7 @@ end
 function Barcode:setBarWidth(width)
     assert(width ~= nil, "Barcode: bar width cannot be nil")
     assert(width > 0, "Barcode: bar width cannot be 0 or less")
+    self.fullWidth = nil
     self.barWidth = width
 end
 
@@ -316,6 +319,28 @@ function Barcode:setBarHeight(height)
     self.barHeight = height
 end
 
+---Returns total width of the barcode
+---
+---`⚠️ Warning`: the result of this method gets cached, so the first invocation of this method after `setCode` or `setBarWidth` will take slightly longer.
+---@return number fullWidth
+function Barcode:getFullWidth()
+    if self.fullWidth == nil then 
+        self.fullWidth = self.barWidth * 20 -- Account for 'quiet zones'
+        for _, glyph in ipairs(self.cachedBarcode) do
+            self.fullWidth = self.fullWidth + (string.len(glyph)*2-1) * self.barWidth
+        end
+    end
+    return self.fullWidth
+end
+
+---Returns total size of the barcode
+---
+---`⚠️ Warning`: the result of this method gets cached, so the first invocation of this method after `setCode` or `setBarWidth` will take slightly longer.
+---@return number fullWidth
+---@return number fullHeight
+function Barcode:getFullSize()
+    return self:getFullWidth(), self.barHeight
+end
 --#endregion
 
 --#endregion

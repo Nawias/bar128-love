@@ -30,9 +30,7 @@ This example will render a barcode with the code "12345" at position (100, 100).
 
 ### Constructor
 
-```lua
-Barcode(code: string|number, barHeight: number, barWidth: number, barcodeType: 'A'|'B'|'C'): Barcode
-```
+#### `Barcode(code: string|number, barHeight: number, barWidth: number, barcodeType: 'A'|'B'|'C'): Barcode`
 
 Creates a new Barcode object with the specified parameters:
 
@@ -41,7 +39,9 @@ Creates a new Barcode object with the specified parameters:
 - `barWidth`: The width of one bar in pixels (default: 1).
 - `barcodeType`: The code 128 character set to use (`'A'`, `'B'` or `'C'`). If not provided, the library will detect the charset automatically.
 
-### `draw(text: 'notext'|'text', x: number, y: number)`
+### Drawing
+
+#### `draw(text: 'notext'|'text', x: number, y: number)`
 
 Draws the barcode on the screen.
 
@@ -84,6 +84,14 @@ Returns the current barcode height.
 Changes the barcode's height.
 
 - `height`: The new barcode height in pixels.
+
+#### `getFullWidth(): number`
+
+Returns total width of the barcode.
+
+#### `getFullWidth(): number, number`
+
+Returns total size of the barcode.
 
 ## License
 
