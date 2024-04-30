@@ -34,6 +34,7 @@ local BAR128 = {
 ---@field private cachedBarcode number[] Parsed barcode ready for rendering
 ---@field private fullWidth number Full width of the barcode calculated on demand
 ---@field private __index Barcode
+---@overload fun(code:string|number, barHeight: number?, barWidth: number?, barcodeType: 'A'|'B'|'C'|nil):Barcode
 local Barcode = {}
 Barcode.__index = Barcode
 
