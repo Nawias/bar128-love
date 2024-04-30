@@ -324,10 +324,10 @@ end
 ---`⚠️ Warning`: the result of this method gets cached, so the first invocation of this method after `setCode` or `setBarWidth` will take slightly longer.
 ---@return number fullWidth
 function Barcode:getFullWidth()
-    if self.fullWidth == nil then 
+    if self.fullWidth == nil then
         self.fullWidth = self.barWidth * 20 -- Account for 'quiet zones'
         for _, glyph in ipairs(self.cachedBarcode) do
-            self.fullWidth = self.fullWidth + (string.len(glyph)*2-1) * self.barWidth
+            self.fullWidth = self.fullWidth + (string.len(glyph) * 2 - 1) * self.barWidth
         end
     end
     return self.fullWidth
@@ -341,6 +341,7 @@ end
 function Barcode:getFullSize()
     return self:getFullWidth(), self.barHeight
 end
+
 --#endregion
 
 --#endregion

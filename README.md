@@ -89,9 +89,11 @@ Changes the barcode's height.
 
 Returns total width of the barcode.
 
-#### `getFullWidth(): number, number`
+#### `getFullSize(): number, number`
 
 Returns total size of the barcode.
+
+> ⚠️ Warning: the result of `getFullWidth` gets cached, so the first invocation after `setCode` or `setBarWidth` will take slightly longer. `getFullSize` also uses `getFullWidth` under the hood.
 
 ## License
 
